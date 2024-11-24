@@ -1,36 +1,46 @@
-CC = cc
+AR			= ar rcs
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra
 
-CFLAGS = -Werror -Wextra -Wall
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-LIBFT = libft/libft.a
-LIBFT_OBJ =
+INCLUDES	= includes/
+SRC_DIR		= srcs/
+OBJ_DIR		= objs/
 
-SRCS = ft_printf.c main.c
-OBJ = $(SRCS:.c=.o)
+CFLAGS		+= -I$(INCLUDES)
 
-NAME = libftprintf.a
+SRC			= ft_printf.c ft_printf_utils.c
+OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
+
+NAME		= libftprintf.a
+
 
 all: $(NAME)
 
-$(LIBFT):
-	make -sC libft bonus
-
 $(NAME): $(LIBFT) $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	$(AR) $(NAME) $(OBJ)
 
-test: $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBFT) -o $@
+$(LIBFT):
+	make -sC $(LIBFT_DIR)
+	@cp $(LIBFT) .
+	@mv libft.a $(NAME)
 
-%.o: %.c
+#test: $(LIBFT) $(OBJ)
+#	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LIBFT)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make -sC libft clean
-	rm -rf $(OBJ) $(BONUS_OBJ)
+	rm -rf $(OBJ_DIR)
+	@make clean -sC $(LIBFT_DIR)
 
 fclean: clean
-	make -sC libft fclean
 	rm -rf $(NAME)
+	make fclean -sC libft
 
 re: fclean all
 

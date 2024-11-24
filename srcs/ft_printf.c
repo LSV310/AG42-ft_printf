@@ -6,59 +6,67 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:16:23 by agruet            #+#    #+#             */
-/*   Updated: 2024/11/22 17:08:46 by agruet           ###   ########.fr       */
+/*   Updated: 2024/11/24 21:29:19 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_conversion(char c, va_list ap)
+static int	print_normal_chars(const char *s, int *current)
+{
+	int	start;
+	int	len;
+
+	start = *current;
+	while (s[*current] && s[*current] != '%')
+		(*current)++;
+	len = *current - start;
+	write(1, &s[start], len);
+	return (len);
+}
+
+static int	get_conversion(char c, va_list ap)
 {
 	if (c == 'c')
-		return(ft_putchar_fd(va_arg(ap, int), 1));
+		return (ft_putchar_len(va_arg(ap, int)));
 	else if (c == 's')
-		return(ft_putstr_fd(va_arg(ap, char *), 1));
+		return (ft_putstr_len(va_arg(ap, char *)));
 	else if (c == 'p')
-		return(ft_printptr(va_arg(ap, unsigned long long)));
+		return (ft_printptr(va_arg(ap, unsigned long long)));
 	else if (c == 'd' || c == 'i')
-		return(ft_putnbr_base(va_arg(ap, unsigned int), "0123456789", 10));
+		return (ft_putnbr_base_len(va_arg(ap, unsigned int), "0123456789", 10));
 	else if (c == 'u')
-		return(ft_putnbr_base(va_arg(ap, unsigned int), "0123456789", 10));
+		return (ft_putnbr_base(va_arg(ap, unsigned int), "0123456789", 10));
 	else if (c == 'x')
-		return(ft_putnbr_hex(va_arg(ap, int), "0123456789abcdef"));
+		return (ft_putnbr_base_len(va_arg(ap, int), "0123456789abcdef", 16));
 	else if (c == 'X')
-		return(ft_putnbr_hex(va_arg(ap, int), "0123456789ABCDEF"));
+		return (ft_putnbr_base_len(va_arg(ap, int), "0123456789ABCDEF", 16));
 	else if (c == '%')
-		return(ft_putchar_fd('%', 1));
+		return (ft_putchar_len('%'));
 	return (0);
 }
 
 int	ft_printf(const char *s, ...)
 {
 	va_list	ap;
-	int		i;
-	int		j;
+	int		len;
+	int		current;
 
-	i = 0;
-	j = 0;
 	if (!s)
 		return (-1);
 	va_start(ap, s);
-	while (s[i])
+	current = 0;
+	len = 0;
+	while (s[current])
 	{
-		j = i;
-		if (s[i] == '%')
+		if (s[current] == '%')
 		{
-			get_conversion(s[i + 1], ap);
-			i += 2;
+			len += get_conversion(s[current + 1], ap);
+			current += 2;
 		}
 		else
-		{
-			while (s[i] && s[i] != '%')
-				i++;
-			write(1, &s[i], i - j);
-		}
+			len += print_normal_chars(s, &current);
 	}
 	va_end(ap);
-	return (0);
+	return (len);
 }
