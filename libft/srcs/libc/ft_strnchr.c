@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 16:03:13 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/01 16:54:15 by agruet           ###   ########.fr       */
+/*   Created: 2025/04/02 21:48:42 by agruet            #+#    #+#             */
+/*   Updated: 2025/04/02 21:50:15 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int ft_printf(const char *str, ...)
+char	*ft_strnchr(const char *s, int c, size_t size)
 {
-	t_printf	printf;
-	va_list		ap;
-	int			current;
+	size_t	i;
 
-	if (!str)
-		return (-1);
-	va_start(ap, str);
-	ft_memset(str, 0, printf.buff_size);
-	while (current)
-	va_end(ap);
+	i = 0;
+	while (s[i] && i < size)
+	{
+		if (s[i] == (unsigned char)c)
+			return ((char *)(s + i));
+		i++;
+	}
+	if (s[i] == (unsigned char)c)
+		return ((char *)(s + i));
+	return (NULL);
 }

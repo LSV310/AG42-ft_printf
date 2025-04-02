@@ -42,6 +42,7 @@ SRC			=	libc/ft_atoi.c				\
 				libc/ft_strlen.c			\
 				libc/ft_strlstr.c			\
 				libc/ft_strmapi.c			\
+				libc/ft_strnchr.c			\
 				libc/ft_strncmp.c			\
 				libc/ft_strnstr.c			\
 				libc/ft_strrchr.c			\
@@ -62,7 +63,6 @@ SRC			=	libc/ft_atoi.c				\
 				data/ft_dlstfirst.c			\
 				data/ft_dlstlast.c			\
 				data/ft_dlstnew.c			\
-				data/ft_dlstprint.c			\
 				data/ft_dlstremove_node.c	\
 				data/ft_lstadd_back.c		\
 				data/ft_lstadd_front.c		\
@@ -73,7 +73,6 @@ SRC			=	libc/ft_atoi.c				\
 				data/ft_lstlast.c			\
 				data/ft_lstmap.c			\
 				data/ft_lstnew.c			\
-				data/ft_lstprint.c			\
 				data/ft_lstremove_node.c	\
 				data/ft_lstsize.c			\
 				data/ft_lstvoid_content.c	\
@@ -92,7 +91,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
-	@printf "                          \r\e[1;32mLibft Compiled\e[0m\n"
+	@printf "                                     \r\e[1;32mLibft Compiled\e[0m\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@printf "\e[1;32mCompiling %s\e[0m" $(notdir $<)
