@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/02 23:46:26 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/03 12:26:39 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ typedef struct	s_printf
 	int			fd;
 	int			len;
 	t_pflags	flags;
+	int			padding;
 }	t_printf;
 
 int	ft_printf(const char *s, ...);
-int	write_to_buff(t_printf *printf, char *to_write, size_t size);
-int	flush_printf(t_printf *printf);
+int	write_to_buff(t_printf *ft_print, char *to_write, size_t size);
+int	flush_printf(t_printf *ft_print);
 
 #endif

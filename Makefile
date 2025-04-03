@@ -17,7 +17,7 @@ OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 NAME		= libftprintf.a
 TEST		= test
 
-all: $(NAME)
+all: $(NAME) $(TEST)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(AR) $(NAME) $(OBJ)
