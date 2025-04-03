@@ -6,14 +6,14 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:05:49 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/03 12:13:07 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/03 16:50:34 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	main(void)
 {
-	printf("%10d\n", 10);
+	ft_printf("%d\n", ft_printf(" NULL %s NULL ", NULL));
+	printf("%d\n", printf(" NULL %s NULL ", NULL));
 }

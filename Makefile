@@ -1,6 +1,6 @@
 AR			= ar rcs
 CC			= cc
-CFLAGS		= #-Wall -Werror -Wextra
+CFLAGS		= -ggdb #-Wall -Werror -Wextra
 
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
@@ -11,13 +11,13 @@ OBJ_DIR		= objs/
 
 CFLAGS		+= -I$(INCLUDES)
 
-SRC			= ft_printf.c buffer.c
+SRC			= ft_printf.c buffer.c write_converts.c
 OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
 NAME		= libftprintf.a
 TEST		= test
 
-all: $(NAME) $(TEST)
+all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(AR) $(NAME) $(OBJ)
@@ -49,6 +49,8 @@ fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -sC libft
 
+bonus: $(NAME)
+
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test bonus
