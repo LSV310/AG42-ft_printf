@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 15:39:15 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 17:20:39 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_printf
 	int			len;
 	t_pflags	flags;
 	int			padding;
+	int			precision;
 }	t_printf;
 
 int		ft_printf(const char *s, ...);

@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:03:13 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 15:39:08 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 17:48:47 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	init_struct(t_printf *ft_print, char *str)
 	ft_print->fd = 1;
 	ft_print->len = 0;
 	ft_print->flags = NO_FLAGS;
+	ft_print->padding = 0;
+	ft_print->precision = 0;
 }
 
 void	start_conversion(t_printf *ft_print, char *str, va_list ap)
@@ -30,10 +32,16 @@ void	start_conversion(t_printf *ft_print, char *str, va_list ap)
 	ft_print->current += 1;
 	if (!parse_flags(ft_print, str, ft_print->current))
 	{
+		printf("\tflags: %d\n", ft_print->flags);
+		printf("\tprecision: %d\n", ft_print->precision);
+		printf("\tpadding: %d\n", ft_print->padding);
 		write_to_buff(ft_print, "%", 1);
 		reset_flags(ft_print);
 		return ;
 	}
+	printf("\tflags: %d\n", ft_print->flags);
+	printf("\tprecision: %d\n", ft_print->precision);
+	printf("\tpadding: %d\n", ft_print->padding);
 	if (str[ft_print->current] == 'c')
 		write_char(ft_print, va_arg(ap, int));
 	else if (str[ft_print->current] == 's')

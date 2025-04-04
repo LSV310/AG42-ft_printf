@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:30:11 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 15:36:25 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 17:43:36 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	write_char(t_printf *ft_print, int c)
 	write_to_buff(ft_print, (char *)&c, 1);
 }
 
-void	write_string(t_printf *ft_print, char *str)
+void	write_str(t_printf *ft_print, char *str)
 {
 	if (!str)
 	{

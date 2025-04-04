@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:05:49 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 15:34:49 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 18:19:13 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(int ac, char **av)
 {
-	printf("%p\n", ULONG_MAX);
-	ft_printf("%p\n", ULONG_MAX);
+	ft_printf("%.10d\n", 2);
+	printf("%.10d\n", 2);
 }
