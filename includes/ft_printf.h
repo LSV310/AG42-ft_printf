@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/03 13:30:28 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 15:39:15 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef enum printf_flags
 {
+	INVALID = -1,
 	NO_FLAGS = 0,
 	LEFT_JUSTIFY = 1 << 0,
 	PAD_ZEROS = 1 << 1,
@@ -50,9 +51,11 @@ int		ft_printf(const char *s, ...);
 int		write_to_buff(t_printf *ft_print, char *to_write, size_t size);
 int		flush_printf(t_printf *ft_print);
 void	write_char(t_printf *ft_print, int c);
-void	write_string(t_printf *ft_print, char *str);
+void	write_str(t_printf *ft_print, char *str);
 void	write_ptr(t_printf *ft_print, unsigned long long ptr);
-void	ft_putnbr_base_fd(t_printf *ft_print, unsigned int n, char *base, int base_len);
-void	ft_putnbr_base_len_fd(t_printf *ft_print, int n, char *base, int base_len);
+void	write_int(t_printf *ft_print, int n, char *base, int base_len);
+void	write_uint(t_printf *ft_print, unsigned int nb, char *base, int b_len);
+int		parse_flags(t_printf *ft_print, char *str, size_t current);
+void	reset_flags(t_printf *ft_print);
 
 #endif

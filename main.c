@@ -6,14 +6,14 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:05:49 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/03 16:50:34 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/04 15:34:49 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	ft_printf("%d\n", ft_printf(" NULL %s NULL ", NULL));
-	printf("%d\n", printf(" NULL %s NULL ", NULL));
+	printf("%p\n", ULONG_MAX);
+	ft_printf("%p\n", ULONG_MAX);
 }

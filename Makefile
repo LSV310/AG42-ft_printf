@@ -11,7 +11,7 @@ OBJ_DIR		= objs/
 
 CFLAGS		+= -I$(INCLUDES)
 
-SRC			= ft_printf.c buffer.c write_converts.c
+SRC			= ft_printf.c buffer.c flags.c write_converts.c
 OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
 NAME		= libftprintf.a
@@ -36,7 +36,7 @@ $(TEST): $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@printf "\e[1;32mCompiling %s\e[0m" $(notdir $<)
+	@printf "\e[1;35mCompiling %s\e[0m" $(notdir $<)
 	@printf "                                            \r"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
