@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:03:13 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 15:07:01 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/07 17:29:50 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	sanitize_input(t_printf *ft_print, char c)
 	if (ft_print->flags & PAD_ZEROS && (ft_print->flags & LEFT_JUSTIFY
 		|| ft_print->flags & PRECISION))
 		ft_print->flags ^= PAD_ZEROS;
-	if (c != 'x' && c == 'X' && ft_print->flags & ALTERNATIVE_FORM)
+	if (c != 'x' && c != 'X' && ft_print->flags & ALTERNATIVE_FORM)
 		ft_print->flags ^= ALTERNATIVE_FORM;
 	if (ft_print->flags & PAD_ZEROS && ft_print->flags & LEFT_JUSTIFY)
 		ft_print->flags ^= PAD_ZEROS;

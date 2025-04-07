@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:00:35 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 15:26:24 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/07 17:11:29 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	write_sharp(t_printf *ft_print, char *base)
 
 int	write_sign(t_printf *ft_print, bool is_neg)
 {
+	if (is_neg)
+		return (write_to_buff(ft_print, "-", 1));
 	if (ft_print->flags & SHOW_SIGN)
 		return (write_to_buff(ft_print, "+", 1));
 	if (ft_print->flags & SPACE_POSITIVE)
@@ -30,7 +32,7 @@ int	write_sign(t_printf *ft_print, bool is_neg)
 	return (0);
 }
 
-int	write_padding(t_printf *ft_print, size_t padding, int c)
+int	write_padding(t_printf *ft_print, int padding, int c)
 {
 	int	i;
 
@@ -41,5 +43,7 @@ int	write_padding(t_printf *ft_print, size_t padding, int c)
 			return (-1);
 		i++;
 	}
+	if (padding < 0)
+		padding = 0;
 	return (padding);
 }
