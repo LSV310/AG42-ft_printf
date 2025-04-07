@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 17:20:39 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:20:22 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,30 @@ typedef struct s_printf
 	int			precision;
 }	t_printf;
 
+// ft_printf
 int		ft_printf(const char *s, ...);
-int		write_to_buff(t_printf *ft_print, char *to_write, size_t size);
-int		flush_printf(t_printf *ft_print);
+
+// convertion formats
 void	write_char(t_printf *ft_print, int c);
 void	write_str(t_printf *ft_print, char *str);
 void	write_ptr(t_printf *ft_print, unsigned long long ptr);
 void	write_int(t_printf *ft_print, int n, char *base, int base_len);
 void	write_uint(t_printf *ft_print, unsigned int nb, char *base, int b_len);
+
+// buffer
+int		write_to_buff(t_printf *ft_print, char *to_write, size_t size);
+int		flush_printf(t_printf *ft_print);
+
+// parse flags
 int		parse_flags(t_printf *ft_print, char *str, size_t current);
 void	reset_flags(t_printf *ft_print);
+
+// apply flags
+int		apply_numeric_flag(t_printf *ft_print, int len, char *base, bool is_neg);
+
+// write_flags
+int		write_padding(t_printf *ft_print, size_t padding, int c);
+int		write_sharp(t_printf *ft_print, char *base);
+int		write_sign(t_printf *ft_print, bool is_neg);
 
 #endif

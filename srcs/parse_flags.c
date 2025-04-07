@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:50:05 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 18:16:35 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/07 11:41:04 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	parse_flags(t_printf *ft_print, char *str, size_t current)
 	current_flag = get_flag(str[current]);
 	while (current_flag != INVALID)
 	{
-		if (current_flag && ft_print->flags & current_flag)
-			return (0);
 		if (current_flag == PRECISION && add_precision(ft_print, str, &current))
 			break ;
 		ft_print->flags |= current_flag;

@@ -11,13 +11,13 @@ OBJ_DIR		= objs/
 
 CFLAGS		+= -I$(INCLUDES)
 
-SRC			= ft_printf.c buffer.c flags.c write_converts.c
+SRC			= ft_printf.c buffer.c parse_flags.c apply_flags.c write_converts.c
 OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 
 NAME		= libftprintf.a
 TEST		= test
 
-all: $(NAME)
+all: $(NAME) $(TEST)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(AR) $(NAME) $(OBJ)

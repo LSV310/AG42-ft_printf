@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:03:13 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/04 17:48:47 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:07:01 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,60 @@ static void	init_struct(t_printf *ft_print, char *str)
 	ft_print->precision = 0;
 }
 
+void	printf_flags(t_printf *ft_print)
+{
+	printf("Flags:\t\t[");
+	while (1)
+	{
+		if (ft_print->flags == NO_FLAGS)
+		{
+			printf("empty]\n");
+			break ;
+		}
+		if (ft_print->flags & LEFT_JUSTIFY)
+			printf("'-', ");
+		if (ft_print->flags & PAD_ZEROS)
+			printf("'0', ");
+		if (ft_print->flags & PRECISION)
+			printf("'.', ");
+		if (ft_print->flags & ALTERNATIVE_FORM)
+			printf("'#', ");
+		if (ft_print->flags & SHOW_SIGN)
+			printf("'+', ");
+		if (ft_print->flags & SPACE_POSITIVE)
+			printf("' ', ");
+		printf("\b\b] \b\n");
+		break ;
+	}
+	printf("Padding:\t%d\n", ft_print->padding);
+	printf("Precision:\t%d\n", ft_print->precision);
+}
+
+void	sanitize_input(t_printf *ft_print, char c)
+{
+	if (ft_print->flags & PAD_ZEROS && (ft_print->flags & LEFT_JUSTIFY
+		|| ft_print->flags & PRECISION))
+		ft_print->flags ^= PAD_ZEROS;
+	if (c != 'x' && c == 'X' && ft_print->flags & ALTERNATIVE_FORM)
+		ft_print->flags ^= ALTERNATIVE_FORM;
+	if (ft_print->flags & PAD_ZEROS && ft_print->flags & LEFT_JUSTIFY)
+		ft_print->flags ^= PAD_ZEROS;
+	if (c != 'd' && c != 'i' && ft_print->flags & SPACE_POSITIVE)
+		ft_print->flags ^= SPACE_POSITIVE;
+	if (c != 'd' && c != 'i' && ft_print->flags & SHOW_SIGN)
+		ft_print->flags ^= SHOW_SIGN;
+}
+
 void	start_conversion(t_printf *ft_print, char *str, va_list ap)
 {
 	ft_print->current += 1;
 	if (!parse_flags(ft_print, str, ft_print->current))
 	{
-		printf("\tflags: %d\n", ft_print->flags);
-		printf("\tprecision: %d\n", ft_print->precision);
-		printf("\tpadding: %d\n", ft_print->padding);
 		write_to_buff(ft_print, "%", 1);
 		reset_flags(ft_print);
 		return ;
 	}
-	printf("\tflags: %d\n", ft_print->flags);
-	printf("\tprecision: %d\n", ft_print->precision);
-	printf("\tpadding: %d\n", ft_print->padding);
+	sanitize_input(ft_print, str[ft_print->current]);
 	if (str[ft_print->current] == 'c')
 		write_char(ft_print, va_arg(ap, int));
 	else if (str[ft_print->current] == 's')
