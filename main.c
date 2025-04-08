@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:05:49 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 13:47:15 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:32:09 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	main(int ac, char **av)
 {
 	int c = 'c';
-	ft_printf("%.s\n", NULL);
-	printf("%.s\n", NULL);
+	ft_printf("%-15p\n", NULL);
+	printf("%-15p\n", NULL);
 }

@@ -6,11 +6,20 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:00:35 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 13:36:37 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 14:50:45 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	write_null(t_printf *ft_print)
+{
+	if (ft_print->flags & PRECISION && ft_print->precision < 6)
+		return (0);
+	if (write_to_buff(ft_print, "(null)", 6) == -1)
+		return (-1);
+	return (6);
+}
 
 int	write_sharp(t_printf *ft_print, char *base)
 {

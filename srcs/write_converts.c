@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:30:11 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 13:41:11 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:40:34 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,29 @@ void	write_char(t_printf *ft_print, int c)
 
 void	write_str(t_printf *ft_print, char *str)
 {
-	int	len;
+	int	calc_size;
 
-	len = 6;
-	if (str)
-		len = ft_strlen(str);
+	calc_size = calc_str_size(ft_print, str);
 	if (!(ft_print->flags & LEFT_JUSTIFY))
 	{
-		if (write_padding(ft_print, ft_print->padding - len, ' ') == -1)
+		if (write_padding(ft_print, calc_size, ' ') == -1)
 			return ;
 	}
 	if (!str)
 	{
-		if (write_to_buff(ft_print, "(null)", 6) == -1)
+		if (write_null(ft_print) == -1)
 			return ;
 	}
 	else if (!(ft_print->flags & PRECISION))
 	{
-		if (write_to_buff(ft_print, str, len) == -1)
+		if (write_to_buff(ft_print, str, ft_strlen(str)) == -1)
 			return ;
 	}
 	else if (write_to_buff(ft_print, str,
-		ft_min(ft_print->precision, len)) == -1)
+			ft_min(ft_print->precision, ft_strlen(str))) == -1)
 		return ;
 	if (ft_print->flags & LEFT_JUSTIFY)
-		write_padding(ft_print, ft_print->padding - len, ' ');
+		write_padding(ft_print, calc_size, ' ');
 }
 
 void	write_uint(t_printf *ft_print, unsigned int nb, char *base, int b_len)
@@ -72,7 +70,7 @@ void	write_uint(t_printf *ft_print, unsigned int nb, char *base, int b_len)
 	while (divisor > 0)
 	{
 		if (ft_print->flags & PRECISION && ft_print->precision <= 0 && nb == 0)
-			return ;
+			break ;
 		if (write_to_buff(ft_print, &base[nb / divisor % b_len], 1) == -1)
 			return ;
 		divisor /= b_len;
@@ -99,7 +97,7 @@ void	write_int(t_printf *ft_print, int n, char *base, int base_len)
 	while (divisor > 0)
 	{
 		if (ft_print->flags & PRECISION && ft_print->precision <= 0 && nb == 0)
-			return ;
+			break ;
 		if (write_to_buff(ft_print, &base[nb / divisor % base_len], 1) == -1)
 			return ;
 		divisor /= base_len;
@@ -120,6 +118,8 @@ void	write_ptr(t_printf *ft_print, unsigned long long ptr)
 	if (!ptr)
 	{
 		write_to_buff(ft_print, "(nil)", 5);
+		if (ft_print->flags & LEFT_JUSTIFY)
+			write_padding(ft_print, ft_print->padding - calc_size, ' ');
 		return ;
 	}
 	divisor = 1;

@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:03:13 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 13:02:16 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:40:21 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,35 @@ static void	reset_flags(t_printf *ft_print)
 	ft_print->flags = NO_FLAGS;
 	ft_print->padding = 0;
 	ft_print->precision = 0;
+}
+
+void	printf_flags(t_printf *ft_print)
+{
+	printf("Flags:\t\t[");
+	while (1)
+	{
+		if (ft_print->flags == NO_FLAGS)
+		{
+			printf("empty]\n");
+			break ;
+		}
+		if (ft_print->flags & LEFT_JUSTIFY)
+			printf("'-', ");
+		if (ft_print->flags & PAD_ZEROS)
+			printf("'0', ");
+		if (ft_print->flags & PRECISION)
+			printf("'.', ");
+		if (ft_print->flags & ALTERNATIVE_FORM)
+			printf("'#', ");
+		if (ft_print->flags & SHOW_SIGN)
+			printf("'+', ");
+		if (ft_print->flags & SPACE_POSITIVE)
+			printf("' ', ");
+		printf("\b\b] \b\n");
+		break ;
+	}
+	printf("Padding:\t%d\n", ft_print->padding);
+	printf("Precision:\t%d\n", ft_print->precision);
 }
 
 void	start_conversion(t_printf *ft_print, char *str, va_list ap)

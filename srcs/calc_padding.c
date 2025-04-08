@@ -6,11 +6,29 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:32:38 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 13:40:43 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:41:41 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	calc_str_size(t_printf *ft_print, char *str)
+{
+	int		size;
+	size_t	len;
+
+	size = 0;
+	len = ft_strlen(str);
+	if (str && ft_print->flags & PRECISION && ft_print->precision < len)
+		size = ft_print->precision;
+	else if (str)
+		size = ft_strlen(str);
+	else if (!str && ft_print->flags & PRECISION && ft_print->precision < 6)
+		size = 0;
+	else if (!str)
+		size = 6;
+	return (ft_print->padding - size);
+}
 
 int	calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len)
 {
@@ -50,11 +68,8 @@ int	calc_int_size(t_printf *ft_print, int n, int base_len)
 	if (n < 0)
 		nb = -n;
 	divisor = 1;
-	while (nb / divisor >= base_len)
-	{
-		size++;
+	while (nb / divisor >= base_len && size++)
 		divisor *= base_len;
-	}
 	precision = ft_print->precision;
 	if (precision != 0)
 		ft_print->precision++;
@@ -63,7 +78,8 @@ int	calc_int_size(t_printf *ft_print, int n, int base_len)
 	ft_print->precision -= size;
 	if (size < precision)
 		size = precision;
-	if (n < 0 || ft_print->flags & SPACE_POSITIVE || ft_print->flags & SHOW_SIGN)
+	if (n < 0 || ft_print->flags & SPACE_POSITIVE
+		|| ft_print->flags & SHOW_SIGN)
 		size++;
 	return (size);
 }
