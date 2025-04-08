@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:50:05 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 11:41:04 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:02:31 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	reset_flags(t_printf *ft_print)
-{
-	ft_print->flags = NO_FLAGS;
-	ft_print->padding = 0;
-	ft_print->precision = 0;
-}
 
 static t_pflags	get_flag(char c)
 {
@@ -64,6 +57,18 @@ static void	add_padding(t_printf *ft_print, char *str, size_t *current)
 	*current = end;
 }
 
+static void	sanitize_input(t_printf *ft_print, char c)
+{
+	if (ft_print->flags & LEFT_JUSTIFY || ft_print->flags & PRECISION)
+		ft_print->flags &= ~PAD_ZEROS;
+	if (c != 'x' && c != 'X')
+		ft_print->flags &= ~ALTERNATIVE_FORM;
+	if (c != 'd' && c != 'i')
+		ft_print->flags &= ~SPACE_POSITIVE;
+	if (c != 'd' && c != 'i')
+		ft_print->flags &= ~SHOW_SIGN;
+}
+
 int	parse_flags(t_printf *ft_print, char *str, size_t current)
 {
 	t_pflags	current_flag;
@@ -85,5 +90,6 @@ int	parse_flags(t_printf *ft_print, char *str, size_t current)
 	if (!str[current] || !ft_strchr(AVAILABLE_PRINTF_CONVERT, str[current]))
 		return (0);
 	ft_print->current = current;
+	sanitize_input(ft_print, str[current]);
 	return (1);
 }

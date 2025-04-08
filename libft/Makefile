@@ -79,8 +79,8 @@ SRC			=	libc/ft_atoi.c				\
 				data/ft_maps.c				\
 				data/ft_maps2.c				\
 				data/ft_strstr_dlst.c		\
-				maths/max.c					\
-				maths/min.c					\
+				maths/ft_max.c				\
+				maths/ft_min.c				\
 				maths/q_rsqrt.c
 
 OBJ			= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))

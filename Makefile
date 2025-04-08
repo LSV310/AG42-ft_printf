@@ -14,7 +14,6 @@ CFLAGS		+= -I$(INCLUDES)
 SRC			=	ft_printf.c			\
 				buffer.c			\
 				calc_padding.c		\
-				apply_flags.c		\
 				parse_flags.c		\
 				write_converts.c	\
 				write_flags.c

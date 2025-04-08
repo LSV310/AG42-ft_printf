@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:32:38 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 17:18:01 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:40:43 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len)
 {
 	int				size;
+	int				precision;
 	unsigned int	divisor;
 
 	size = 1;
@@ -24,8 +25,14 @@ int	calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len)
 		size++;
 		divisor *= base_len;
 	}
-	if (size < ft_print->precision)
-		size = ft_print->precision;
+	precision = ft_print->precision;
+	if (precision != 0)
+		ft_print->precision++;
+	if (nb == 0 && ft_print->flags & PRECISION && precision == 0)
+		size--;
+	ft_print->precision -= size;
+	if (size < precision)
+		size = precision;
 	if (nb != 0 && ft_print->flags & ALTERNATIVE_FORM)
 		size += 2;
 	return (size);
@@ -34,6 +41,7 @@ int	calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len)
 int	calc_int_size(t_printf *ft_print, int n, int base_len)
 {
 	int				size;
+	int				precision;
 	unsigned int	nb;
 	unsigned int	divisor;
 
@@ -47,8 +55,14 @@ int	calc_int_size(t_printf *ft_print, int n, int base_len)
 		size++;
 		divisor *= base_len;
 	}
-	if (size < ft_print->precision)
-		size = ft_print->precision;
+	precision = ft_print->precision;
+	if (precision != 0)
+		ft_print->precision++;
+	if (n == 0 && ft_print->flags & PRECISION && precision == 0)
+		size--;
+	ft_print->precision -= size;
+	if (size < precision)
+		size = precision;
 	if (n < 0 || ft_print->flags & SPACE_POSITIVE || ft_print->flags & SHOW_SIGN)
 		size++;
 	return (size);
@@ -56,11 +70,15 @@ int	calc_int_size(t_printf *ft_print, int n, int base_len)
 
 int	calc_long_size(t_printf *ft_print, unsigned long long ptr)
 {
-	size_t	size;
+	int		size;
 	size_t	divisor;
 
+	ft_print->precision = 0;
 	if (!ptr)
+	{
+		ft_print->flags &= ~ALTERNATIVE_FORM;
 		return (5);
+	}
 	divisor = 1;
 	size = 1;
 	while (ptr / divisor >= 16)
@@ -68,8 +86,6 @@ int	calc_long_size(t_printf *ft_print, unsigned long long ptr)
 		size++;
 		divisor *= 16;
 	}
-	if (size < ft_print->precision)
-		size = ft_print->precision;
 	size += 2;
 	return (size);
 }

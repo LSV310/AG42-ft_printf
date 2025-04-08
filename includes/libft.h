@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:54:10 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/03 12:31:51 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 10:45:54 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	shift_elem_down(char **tab, char *elem);
 
 // maths
 double	q_rsqrt(double number);
-int		max(int a, int b);
-int		min(int a, int b);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 // linked lists
 typedef struct s_list

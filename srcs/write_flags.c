@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:00:35 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 17:11:29 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:36:37 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,28 @@ int	write_padding(t_printf *ft_print, int padding, int c)
 	if (padding < 0)
 		padding = 0;
 	return (padding);
+}
+
+int	apply_numeric_flag(t_printf *ft_print, int len, char *base, bool is_neg)
+{
+	if (!(ft_print->flags & PAD_ZEROS) && !(ft_print->flags & LEFT_JUSTIFY))
+	{
+		if (write_padding(ft_print, ft_print->padding - len, ' ') == -1)
+			return (-1);
+	}
+	if (write_sign(ft_print, is_neg) == -1)
+		return (-1);
+	if (ft_print->flags & ALTERNATIVE_FORM && write_sharp(ft_print, base) == -1)
+		return (-1);
+	if (ft_print->flags & PAD_ZEROS)
+	{
+		if (write_padding(ft_print, ft_print->padding - len, '0') == -1)
+			return (-1);
+	}
+	if (ft_print->precision > 0)
+	{
+		if (write_padding(ft_print, ft_print->precision - 1, '0') == -1)
+			return (-1);
+	}
+	return (0);
 }

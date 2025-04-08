@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/07 16:39:24 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:03:50 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ int		flush_printf(t_printf *ft_print);
 
 // parse flags
 int		parse_flags(t_printf *ft_print, char *str, size_t current);
-void	reset_flags(t_printf *ft_print);
-
-// apply flags
-int		apply_numeric_flag(t_printf *ft_print, int len, char *base, bool is_neg);
 
 // calc padding
 int		calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len);
@@ -75,6 +71,7 @@ int		calc_int_size(t_printf *ft_print, int n, int base_len);
 int		calc_long_size(t_printf *ft_print, unsigned long long ptr);
 
 // write_flags
+int		apply_numeric_flag(t_printf *ft_print, int len, char *base, bool is_neg);
 int		write_padding(t_printf *ft_print, int padding, int c);
 int		write_sharp(t_printf *ft_print, char *base);
 int		write_sign(t_printf *ft_print, bool is_neg);
