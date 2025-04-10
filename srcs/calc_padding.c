@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:32:38 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 16:41:41 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:56:54 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	calc_str_size(t_printf *ft_print, char *str)
 
 	size = 0;
 	len = ft_strlen(str);
-	if (str && ft_print->flags & PRECISION && ft_print->precision < len)
+	if (str && ft_print->flags & PRECISION && ft_print->precision < (int)len)
 		size = ft_print->precision;
 	else if (str)
 		size = ft_strlen(str);
@@ -38,7 +38,7 @@ int	calc_uint_size(t_printf *ft_print, unsigned int nb, int base_len)
 
 	size = 1;
 	divisor = 1;
-	while (nb / divisor >= base_len)
+	while (nb / divisor >= (unsigned int)base_len)
 	{
 		size++;
 		divisor *= base_len;
@@ -68,7 +68,7 @@ int	calc_int_size(t_printf *ft_print, int n, int base_len)
 	if (n < 0)
 		nb = -n;
 	divisor = 1;
-	while (nb / divisor >= base_len && size++)
+	while (nb / divisor >= (unsigned int)base_len && size++)
 		divisor *= base_len;
 	precision = ft_print->precision;
 	if (precision != 0)

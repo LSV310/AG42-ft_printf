@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:03:27 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 16:42:08 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/10 15:05:29 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 # define PRINTF_BUFF_SIZE 1024
 # define AVAILABLE_PRINTF_CONVERT "cspdiuxX%"
-# define AVAILABLE_PRINTF_FLAGS "-0.# +"
 
 typedef enum printf_flags
 {

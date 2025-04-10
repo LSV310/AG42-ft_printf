@@ -6,7 +6,7 @@
 /*   By: agruet <agruet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 12:30:11 by agruet            #+#    #+#             */
-/*   Updated: 2025/04/08 16:40:34 by agruet           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:57:07 by agruet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	write_uint(t_printf *ft_print, unsigned int nb, char *base, int b_len)
 	if (apply_numeric_flag(ft_print, calc_size, base, nb < 0) == -1)
 		return ;
 	divisor = 1;
-	while (nb / divisor >= b_len)
+	while (nb / divisor >= (unsigned int)b_len)
 		divisor *= b_len;
 	count = 0;
 	while (divisor > 0)
@@ -92,7 +92,7 @@ void	write_int(t_printf *ft_print, int n, char *base, int base_len)
 	if (n < 0)
 		nb = -n;
 	divisor = 1;
-	while (nb / divisor >= base_len)
+	while (nb / divisor >= (unsigned int)base_len)
 		divisor *= base_len;
 	while (divisor > 0)
 	{
